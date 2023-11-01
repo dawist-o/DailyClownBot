@@ -19,7 +19,7 @@ jobs:
       - name: Set backend build properties
 #        run: echo -n ${{ secrets.BACKEND_BUILD_PROPS }} > src/main/resources/application.yml
 #        BACKEND_BUILD_PROPS is encoded by base64, reason: to convert yml tabs and line breaks correctly
-        run: echo -n ${{ secrets.LLL }} | base64 -d > src/main/resources/application.yml
+        run: echo -n ${{ secrets.BACKEND_BUILD_PROPS }} | base64 -d > src/main/resources/application
       - name: Pull all already existing images
         # to make this work we have to set build versions from build.gradle.kts file
         # The exit code is always mapped to 0, as for some reason docker-compose pull likes to exit with a non-zero values
