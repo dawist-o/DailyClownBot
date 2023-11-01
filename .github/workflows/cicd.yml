@@ -15,7 +15,7 @@ jobs:
         with:
           detch-depth: 0
       - name: Login to GHCR
-        run: echo ${{ secrets.ACTION_TOKEN }} | docker login ghcr.io dawist-o  --password-stdin
+        run: echo ${{ secrets.ACTION_TOKEN }} | docker login ghcr.io -u dawist-o --password-stdin
       - name: Set backend build properties
         run: echo -n ${{ secrets.BACKEND_BUILD_PROPS }} > src\main\resources\application.yml
       - name: Pull all already existing images
