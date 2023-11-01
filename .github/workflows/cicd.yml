@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          detch-depth: 0
+          fetch-depth: 0
       - name: Login to GHCR
         run: echo ${{ secrets.ACTION_TOKEN }} | docker login ghcr.io -u dawist-o --password-stdin
       - name: Set backend build properties
