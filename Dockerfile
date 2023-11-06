@@ -5,6 +5,7 @@ WORKDIR /bot/build
 
 COPY . .
 
+RUN echo ${HELLO_WORLD}
 RUN gradle --version
 # запускаем градл билд, запускается единожды при билде имаджа
 RUN gradle clean build -x test
