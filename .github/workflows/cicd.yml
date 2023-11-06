@@ -27,7 +27,7 @@ jobs:
         run: docker-compose -f build.docker-compose.yml pull --ignore-pull-failures || true
       - name: Build bot and database images
         run: |
-          docker-compose -f build.docker-compose.yml up
+          docker-compose -f build.docker-compose.yml up -d
           docker-compose -f build.docker-compose.yml down
       # build images and then stop, because we only need the build image and we don't need it to be running
       # we check if image with same version exists (from pull) then we don't rebuild it
