@@ -19,9 +19,10 @@ class DailyClownBotApplication {
             .stream()
             .filter { ps: PropertySource<*>? -> ps is MapPropertySource }
             .map<Set<String>> { ps: PropertySource<*> -> (ps as MapPropertySource).source.keys }
-            .flatMap<String> { obj: Set<String> -> obj.stream() }
+            .flatMap { obj: Set<String> -> obj.stream() }
             .distinct()
             .sorted()
+            .filter { (!it.equals("bot.token") && !it.equals("bot.name")) }
             .forEach { key: String? ->
                 println(
                     String.format(
