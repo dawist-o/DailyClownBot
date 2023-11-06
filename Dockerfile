@@ -1,4 +1,6 @@
-FROM gradle:latest AS BUILD
+FROM gradle AS build
+
+RUN gradle --version
 
 # это база, основа для имаджа
 FROM eclipse-temurin:17-jdk-jammy
@@ -11,7 +13,7 @@ WORKDIR /bot
 COPY . .
 
 # запускаем градл билд, запускается единожды при билде имаджа
-RUN gradle clean build -x test
+RUN ./gradlew clean build -x test
 
 # Говорим докеру какие команды нужно запустить в нашем имадже, когда имадж стартанет, какие команды нужно выполнять при старте контейнера
 CMD ["./gradlew", ":bootRun"]
