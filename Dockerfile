@@ -1,3 +1,5 @@
+FROM gradle:latest AS BUILD
+
 # это база, основа для имаджа
 FROM eclipse-temurin:17-jdk-jammy
 
