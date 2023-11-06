@@ -1,5 +1,7 @@
 FROM gradle AS build
 
+WORKDIR /bot
+
 RUN gradle --version
 
 # это база, основа для имаджа
