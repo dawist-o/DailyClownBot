@@ -3,7 +3,7 @@ version: "3.7"
 services:
   clownbot:
     container_name: ClownBotContainer
-    image: ghcr.io/dailyclownbot
+    image: ghcr.io/dawist-o/dailyclownbot
     build:
       context: ./
       dockerfile: ./Dockerfile
