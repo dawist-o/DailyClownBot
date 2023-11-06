@@ -1,0 +1,56 @@
+version: "3.7"
+
+services:
+  postgres_db:
+    #  Если мы подключаемся к PGAdmin в контейнере (порт 5050) то для него host постгреса - это НАЗВАНИЕ СЕРВИСА т.е. postgres_db (то что строчкой выше)
+    #  Если же мы подключаемся к PGAdmin локально, то для него коннектоном будет localhost:5432 - т.к. так замаплены порты
+    #  можно указать отдельным параметром
+    container_name: PSQL_Containter
+    image: postgres
+    hostname: postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    networks:
+      - postgres
+    restart: unless-stopped
+  pgadmin:
+    container_name: PGAdmin_Containter
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+  clownbot:
+    container_name: ClownBotContainer
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    environment:
+      SERVICE_NAME: clownbot
+      EXPOSED_PORT: 8080
+      DATABASE_HOST: postgres_db
+    restart: always
+    networks:
+      - postgres
+
+networks:
+  #  The PostgreSQL image sets up trust authentication locally so you may notice a password is not required when connecting from localhost (inside the same container). However, a password will be required if connecting from a different host/container.
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
