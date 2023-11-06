@@ -35,9 +35,7 @@ services:
     restart: unless-stopped
   clownbot:
     container_name: ClownBotContainer
-    build:
-      context: ./
-      dockerfile: ./Dockerfile
+    image: ghcr.io/dawist-o/dailyclownbot:latest
     environment:
       SERVICE_NAME: clownbot
       EXPOSED_PORT: 8080
@@ -45,6 +43,18 @@ services:
     restart: always
     networks:
       - postgres
+#  clownbot:
+#    container_name: ClownBotContainer
+#    build:
+#      context: ./
+#      dockerfile: ./Dockerfile
+#    environment:
+#      SERVICE_NAME: clownbot
+#      EXPOSED_PORT: 8080
+#      DATABASE_HOST: postgres_db
+#    restart: always
+#    networks:
+#      - postgres
 
 networks:
   #  The PostgreSQL image sets up trust authentication locally so you may notice a password is not required when connecting from localhost (inside the same container). However, a password will be required if connecting from a different host/container.
